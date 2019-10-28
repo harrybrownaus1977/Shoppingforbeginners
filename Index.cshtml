@@ -1,0 +1,55 @@
+﻿@model SanaCommerce.Models.ShoppingCartViewModel
+
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+<h2>Shopping Cart</h2>
+
+<p class="btn btn-primary">
+    @Html.ActionLink("Checkout >>", "AddressAndPayment", "Checkout", new { @style = "color:#ffff;" })
+</p>
+<div id="update-message">
+</div>
+<br />
+<table class="table table-bordered">
+    <tr >
+        <th style="width:40%">
+            Product Name
+        </th>
+        <th style="width:20%">
+            Price
+        </th>
+        <th style="width:20%">
+            Quantity
+        </th>
+        <th style="width:20%"></th>
+    </tr>
+    @foreach (var item in Model.itemModelList)
+    {
+        <tr id="row-@item.ProductID">
+            <td>
+                @Html.ActionLink(item.Name, "Details", "Product", new { id = item.ProductID }, null)
+            </td>
+            <td>
+                @item.Rate
+            </td>
+            <td id="item-count-@item.ProductID">
+                @item.Qty
+            </td>
+            <td>
+                @Html.ActionLink("Remove from Cart", "Delete", "ShoppingCart", new { id = item.ProductID },null)
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            Total
+        </td>
+        <td></td>
+        <td></td>
+        <td id="cart-total">
+            @Model.totalModel.Total
+        </td>
+    </tr>
+</table>
